@@ -1,0 +1,29 @@
+boto3==1.38.7
+botocore==1.38.7
+fastapi==0.115.12
+joblib==1.4.2
+minio==7.2.15
+mlflow==2.22.0
+numpy==2.2.5
+pandas==2.2.3
+Pillow==11.2.1
+pydantic==2.11.4
+requests==2.32.3
+scikit_learn==1.6.1
+spacy==3.8.5
+SQLAlchemy==2.0.40
+timm==1.0.15
+torch==2.7.0
+torchvision==0.22.0
+tqdm==4.67.1
+transformers==4.51.3
+uvicorn==0.34.2
+xgboost==3.0.0
+python-multipart==0.0.20
+sentencepiece==0.2.0
+psycopg2==2.9.10
+
+# Après installation, exécuter : python -m spacy download fr_core_news_sm
+# Pour psycopg2 il faudra au préalable avoir fait sudo apt install libpq-dev python3-dev build-essential
+# Et pour le docker compose si vous êtes sous wsl, il faudra installer le docker compose avec : sudo apt-get install docker-compose
+# L'installation de l'ensemble des librairies est assez lourde donc peut prendre un peu de temps.

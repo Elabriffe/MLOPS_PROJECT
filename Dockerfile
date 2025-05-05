@@ -1,0 +1,31 @@
+# Utilise une image PyTorch avec CUDA déjà préinstallé
+FROM pytorch/pytorch:2.2.1-cuda11.8-cudnn8-runtime
+
+# Installer dépendances système (ex: pour psycopg2)
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    python3-dev \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Définir le répertoire de travail
+WORKDIR /app
+
+# Copier les dépendances
+COPY requirements.txt .
+
+# Installer les paquets Python
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Télécharger les modèles spaCy (optionnel : tu peux le faire au runtime aussi)
+RUN python -m spacy download fr_core_news_sm
+
+# Copier le reste de l'app
+COPY src ./src
+COPY airflow ./airflow
+COPY ext ./ext
+COPY utils ./utils
+COPY api_finale.py .
+
+# Point d'entrée
+CMD ["python", "api_finale.py"]

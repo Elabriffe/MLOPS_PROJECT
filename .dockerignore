@@ -1,0 +1,11 @@
+# Ignore les fichiers inutiles
+__pycache__/
+*.pyc
+*.log
+*.csv
+*.npz
+*.pkl
+venv/
+ipynb_checkpoints/
+.mlflow/
+*.jpg
