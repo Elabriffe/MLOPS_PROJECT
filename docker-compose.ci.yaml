@@ -328,7 +328,9 @@ services:
     restart: unless-stopped
 
   mlops-api:
-    build : .  # ou build: . si tu veux construire l'image
+    build :  # ou build: . si tu veux construire l'image
+      context: .
+      dockerfile: Dockerfile.cpu
     ports:
       - "8000:8000"
     deploy:
