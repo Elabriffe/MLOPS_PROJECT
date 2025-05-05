@@ -21,7 +21,7 @@ jobs:
 
       - name: Build and run services with docker-compose.ci.yml
         run: |
-          docker-compose -f docker-compose.ci.yml up -d --build
+          docker-compose -f docker-compose.ci.yaml up -d --build
           sleep 5  # attends que l'API démarre
 
       - name: Test FastAPI is responding
