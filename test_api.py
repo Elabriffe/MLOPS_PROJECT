@@ -5,9 +5,9 @@ def test_api_status_code():
     assert response.status_code == 200
 	
 def test_api_status_code_train():
-    response = requests.get("http://localhost:8000/training/")
+    response = requests.post("http://localhost:8000/training/")
     assert response.status_code == 200
 	
 def test_api_status_code_predict():
-    response = requests.get("http://localhost:8000/prediction/")
+    response = requests.post("http://localhost:8000/prediction/")
     assert response.status_code == 200

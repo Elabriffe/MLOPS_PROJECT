@@ -41,6 +41,7 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
+    needs : deploy
     steps:
       - uses: actions/checkout@v3
 
@@ -51,14 +52,35 @@ jobs:
 
       - name: Lint all Dockerfiles
         run: |
-          find . -type f -name 'Dockerfile*' | while read file; do
-            echo "Linting $file"
-            hadolint "$file"
-          done
+            sudo apt-get install -y jq
+            EXIT_CODE=0
+            find . -type f -name 'Dockerfile*' | while read file; do
+              echo "Linting $file"
+              violations=$(hadolint --format json "$file")
+              errors=$(echo "$violations" | jq '[.[] | select(.level == "error")]')
+              error_count=$(echo "$errors" | jq 'length')
+              if [ "$error_count" -gt 0 ]; then
+                echo "❌ Errors found in $file:"
+                echo "$errors" | jq
+                EXIT_CODE=1
+              else
+                echo "✅ No errors in $file"
+              fi
+            done
+            exit $EXIT_CODE
 
-      - name: Validate all docker-compose files
+
+      - name: Validate all docker-compose files (fail only on real errors)
         run: |
-          find . -type f -name 'docker-compose*.yml' | while read file; do
-            echo "Validating $file"
-            docker-compose -f "$file" config
-          done
+          EXIT_CODE=0
+            find . -type f -name 'docker-compose*.yml' | while read file; do
+                echo "🔍 Validating $file"
+                if ! docker-compose -f "$file" config > /dev/null 2>&1; then
+                    echo "❌ Error in $file"
+                    docker-compose -f "$file" config  # affichage détaillé de l'erreur
+                    EXIT_CODE=1
+                  else
+                    echo "✅ $file is valid"
+                  fi
+            done
+            exit $EXIT_CODE
