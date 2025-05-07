@@ -53,72 +53,7 @@ jobs:
           wget -O /usr/local/bin/hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
           chmod +x /usr/local/bin/hadolint
 
-      - name: Lint and validate Dockerfiles and Compose files
+      - name: Run custom validation script
         run: |
-          EXIT_CODE=0
-          # ---------- Dockerfile lint ----------
-          echo "🔎 Linting Dockerfiles..."
-          VALID_DOCKERFILES=()
-          INVALID_DOCKERFILES=()
-          find . -type f -name 'Dockerfile*' | while read file; do
-            echo "📄 Checking $file"
-            violations=$(hadolint --format json "$file")
-            errors=$(echo "$violations" | jq '[.[] | select(.level == "error")]')
-            error_count=$(echo "$errors" | jq 'length')
-            if [ "$error_count" -gt 0 ]; then
-              echo "❌ Errors in $file:"
-              echo "$errors" | jq
-              INVALID_DOCKERFILES+=("$file")
-              EXIT_CODE=1
-            else
-              echo "✅ $file passed"
-              VALID_DOCKERFILES+=("$file")
-            fi
-          done
-          # ---------- Docker Compose validation ----------
-          echo ""
-          echo "🔎 Validating docker-compose files..."
-          VALID_COMPOSE=()
-          INVALID_COMPOSE=()
-          find . -type f -name 'docker-compose*.yml' | while read file; do
-            echo "📄 Validating $file"
-            validation_output=$(docker-compose -f "$file" config 2>&1)
-            if [ $? -ne 0 ]; then
-              echo "❌ Error in $file"
-              echo "$validation_output"
-              INVALID_COMPOSE+=("$file")
-              EXIT_CODE=1
-            else
-              echo "✅ $file is valid"
-              VALID_COMPOSE+=("$file")
-            fi
-          done
-          # ---------- Résumé ----------
-          echo ""
-          echo "📦 Lint & Validation Summary"
-          echo "----------------------------"
-          if [ ${#VALID_DOCKERFILES[@]} -gt 0 ]; then
-            echo "✅ Valid Dockerfiles:"
-            for file in "${VALID_DOCKERFILES[@]}"; do
-              echo "  - $file"
-            done
-          fi
-          if [ ${#INVALID_DOCKERFILES[@]} -gt 0 ]; then
-            echo "❌ Dockerfiles with errors:"
-            for file in "${INVALID_DOCKERFILES[@]}"; do
-              echo "  - $file"
-            done
-          fi
-          if [ ${#VALID_COMPOSE[@]} -gt 0 ]; then
-            echo "✅ Valid docker-compose files:"
-            for file in "${VALID_COMPOSE[@]}"; do
-              echo "  - $file"
-            done
-          fi
-          if [ ${#INVALID_COMPOSE[@]} -gt 0 ]; then
-            echo "❌ docker-compose files with errors:"
-            for file in "${INVALID_COMPOSE[@]}"; do
-              echo "  - $file"
-            done
-          fi
-          exit $EXIT_CODE
+          pip install --quiet jq  # utile si tu veux encore du jq
+          python validate_docker.py
