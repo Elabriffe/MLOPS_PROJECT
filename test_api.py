@@ -5,9 +5,20 @@ def test_api_status_code():
     assert response.status_code == 200
 	
 def test_api_status_code_train():
-    response = requests.post("http://localhost:8000/training/")
+    response = requests.post("http://localhost:8000/training/", json={})
     assert response.status_code == 200
 	
 def test_api_status_code_predict():
-    response = requests.post("http://localhost:8000/prediction/")
+    url = "http://localhost:8000/prediction/"
+    with open("test_image.jpg", "rb") as f:
+        files = {"file": ("test_image.jpg", f, "image/jpeg")}
+        data = {
+            "id": 1,
+            "designation": "Test",
+            "description": "Test desc",
+            "productid": 123,
+            "imageid": 456
+        }
+        response = requests.post(url, files=files, data=data)
+        assert response.status_code == 200
     assert response.status_code == 200
