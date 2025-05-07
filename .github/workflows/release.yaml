@@ -1,4 +1,4 @@
-name: CI Pipeline deploy
+name: CI Pipeline Deploy
 
 on:
   push:
@@ -27,3 +27,38 @@ jobs:
       - name: Test FastAPI is responding
         run: |
           curl -f http://localhost:8000/docs || (echo "❌ API did not respond!" && exit 1)
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Python test dependencies
+        run: pip install pytest requests
+
+      - name: Run Pytest
+        run: pytest test_api.py
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install hadolint
+        run: |
+          wget -O /usr/local/bin/hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
+          chmod +x /usr/local/bin/hadolint
+
+      - name: Lint all Dockerfiles
+        run: |
+          find . -type f -name 'Dockerfile*' | while read file; do
+            echo "Linting $file"
+            hadolint "$file"
+          done
+
+      - name: Validate all docker-compose files
+        run: |
+          find . -type f -name 'docker-compose*.yml' | while read file; do
+            echo "Validating $file"
+            docker-compose -f "$file" config
+          done
