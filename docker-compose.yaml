@@ -341,6 +341,3 @@ volumes:
   postgres-db-volume:
   pgdata:
   minio-data:
-
-  
-S

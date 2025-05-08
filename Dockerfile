@@ -29,5 +29,3 @@ COPY api_finale.py .
 
 # Point d'entrée
 CMD ["python", "api_finale.py"]
-
-S
