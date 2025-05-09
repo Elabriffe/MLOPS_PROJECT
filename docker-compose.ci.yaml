@@ -332,7 +332,7 @@ services:
   mlops-api:
     build : 
       context: .
-      dockerfile: Dockerfile.cp    # ou build: . si tu veux construire l'image
+      dockerfile: Dockerfile.cpu    # ou build: . si tu veux construire l'image
     ports:
       - "8000:8000"
     volumes:
