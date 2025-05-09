@@ -2,10 +2,10 @@
 __pycache__/
 *.pyc
 *.log
-*.csv
+**/*.csv
 *.npz
 *.pkl
 venv/
 ipynb_checkpoints/
 .mlflow/
-*.jpg
+**/*.jpg

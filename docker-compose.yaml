@@ -295,6 +295,8 @@ services:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: secret123
       POSTGRES_DB: mlops
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     restart: unless-stopped
 
   mlflow:
@@ -323,21 +325,28 @@ services:
       MINIO_ROOT_USER: admin
       MINIO_ROOT_PASSWORD: secret123
     volumes:
-      - minio-data:/data
+      - minio:/data
     command: server /data --console-address ":9001"
     restart: unless-stopped
 
   mlops-api:
-    build : .  # ou build: . si tu veux construire l'image
+    image: mon_projet_mlops:latest  # ou build: . si tu veux construire l'image
     ports:
       - "8000:8000"
+    volumes:
+      - ./src/data/raw:/app/src/data/raw
+      - ./src/data/raw/image_test:/app/src/data/raw/image_test
+      - ./src/data/raw/image_train:/app/src/data/raw/image_train
+      - ./src/data/raw_reduit:/app/src/data/raw_reduit
+      - ./src/data/raw_reduit/image_test:/app/src/data/raw_reduit/image_test
+      - ./src/data/raw_reduit/image_train:/app/src/data/raw_reduit/image_train
     deploy:
       resources:
         reservations:
           devices:
             - capabilities: [gpu]
 
-volumes:
+volumes :
   postgres-db-volume:
+  minio:
   pgdata:
-  minio-data:
