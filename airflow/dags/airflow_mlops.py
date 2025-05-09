@@ -11,7 +11,7 @@ import pandas as pd
 
 # Fonction pour appeler le endpoint training
 def endpoint_training(**kwargs):
-    url = "http://host.docker.internal:8000/training/"  # Url de notre endpoint bien mettre host.docker.internal, pas mettre localhost sinon airflow lancera la requête en local depuis le conteneur et ça ne peut donc pas marcher. d'où le host.internal
+    url = "http://mlops-api:8000/training/"  # Url de notre endpoint bien mettre host.docker.internal, pas mettre localhost sinon airflow lancera la requête en local depuis le conteneur et ça ne peut donc pas marcher. d'où le host.internal
     headers = {
         'Content-Type': 'application/json',  # Spécifie le type de contenu
     }

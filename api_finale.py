@@ -17,10 +17,19 @@ from reco import reco
 from minio import Minio
 import uvicorn
 import subprocess
+from fastapi.middleware.cors import CORSMiddleware
 
 
 # Init FastAPI
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://host.docker.internal:8000"],  # Frontend
+    allow_credentials=True,
+    allow_methods=["*"],  # Autorise toutes les méthodes HTTP
+    allow_headers=["*"],  # Autorise tous les en-têtes
+)
 
 # Configuration globale (tu les as déjà dans ton script)
 MINIO_URL = "minio:9000"
