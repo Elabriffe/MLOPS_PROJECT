@@ -65,6 +65,7 @@ def run_training_pipeline():
     results = {}
 
     scripts = [
+        ("ajout_new_data","./src/data/insert_new_data.py"),
         ("extract_feat_img", "./src/data/processed_img_data.py"),
         ("extract_feat_text", "./src/data/processed_text_data.py"),
         ("train_model", "./src/models/train_model.py"),
