@@ -102,10 +102,10 @@ def clear_directory(folder_path):
 # === Main script ===
 def main():
     if not check_dir_not_empty(cat_dir):
-        print("Le dossier contenant des nouvelles données")
+        print("Pas de nouvelles données à traiter")
         return
     if not check_dir_not_empty(img_dir):
-        print("Le dossier contenant des nouvelles données")
+        print("Pas de nouvelles données à traiter")
         return
 
     try:
