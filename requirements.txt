@@ -27,3 +27,5 @@ psycopg2==2.9.10
 # Pour psycopg2 il faudra au préalable avoir fait sudo apt install libpq-dev python3-dev build-essential
 # Et pour le docker compose si vous êtes sous wsl, il faudra installer le docker compose avec : sudo apt-get install docker-compose
 # L'installation de l'ensemble des librairies est assez lourde donc peut prendre un peu de temps.
+# docker exec projet_mlops_linux-mlops-api-1 python /app/src/data/create_db_postgre.py
+# docker exec projet_mlops_linux-mlops-api-1 python /app/src/data/create_bucket_minio.py
