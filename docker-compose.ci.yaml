@@ -342,7 +342,8 @@ services:
       - ./src/data/raw_reduit:/app/src/data/raw_reduit
       - ./src/data/raw_reduit/image_test:/app/src/data/raw_reduit/image_test
       - ./src/data/raw_reduit/image_train:/app/src/data/raw_reduit/image_train
-
+      - "../NEW_DATA/images:/new_data/images"
+      - "../NEW_DATA/catalogue:/new_data/catalogue"
 volumes :
   postgres-db-volume:
   minio:
