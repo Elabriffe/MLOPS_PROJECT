@@ -92,7 +92,19 @@ Le client est **Rakuten France**, plus précisément les **administrateurs du si
 
 ## 📘 Guide d'installation & utilisation
 
-### 🧱 Étape 0 : Préparer les dossiers de données
+### 📥 Étape 0 : Cloner le dépôt Git
+
+```bash
+git clone https://url-de-votre-repo/MLOPS_PROJECT.git
+cd MLOPS_PROJECT
+```
+cf screen pour données texte :
+![Nomenclature donnée texte.png](assets/Image_1.png)
+
+cf screen pour données images :
+![Donnees images.png](assets/Image_2.png)
+
+### 🧱 Étape 1 : Préparer les dossiers de données
 
 Avant tout, créez deux dossiers dans le dossier parent du projet pour accueillir les nouvelles données :
 
@@ -106,18 +118,6 @@ Respectez la **nomenclature des fichiers** :
 - Pour les fichiers CSV, utilisez exactement ces noms :
   - `New_X_train.csv`
   - `New_y_train.csv`
-
-### 📥 Étape 1 : Cloner le dépôt Git
-
-```bash
-git clone https://url-de-votre-repo/MLOPS_PROJECT.git
-cd MLOPS_PROJECT
-```
-cf screen pour données texte :
-![Nomenclature donnée texte.png](assets/Image_1.png)
-
-cf screen pour données images :
-![Donnees images.png](assets/Image_2.png)
 
 
 #### 🐳 Étape 2 : Construire l’image Docker de l’API
