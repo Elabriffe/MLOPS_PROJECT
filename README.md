@@ -98,11 +98,6 @@ Le client est **Rakuten France**, plus précisément les **administrateurs du si
 git clone https://url-de-votre-repo/MLOPS_PROJECT.git
 cd MLOPS_PROJECT
 ```
-cf screen pour données texte :
-![Nomenclature donnée texte.png](assets/Image_1.png)
-
-cf screen pour données images :
-![Donnees images.png](assets/Image_2.png)
 
 ### 🧱 Étape 1 : Préparer les dossiers de données
 
@@ -119,6 +114,11 @@ Respectez la **nomenclature des fichiers** :
   - `New_X_train.csv`
   - `New_y_train.csv`
 
+cf screen pour données texte :
+![Nomenclature donnée texte.png](assets/Image_1.png)
+
+cf screen pour données images :
+![Donnees images.png](assets/Image_2.png)
 
 #### 🐳 Étape 2 : Construire l’image Docker de l’API
 
