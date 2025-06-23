@@ -56,11 +56,14 @@ if submit_button:
                 st.subheader("📦 Produits Recommandés")
                 for rec in recs:
                     with st.container():
+                        filename = f"image_{rec['imageid']}_product_{rec['productid']}.jpg"
                         st.markdown(f"### 🧸 {rec['designation']}")
                         if rec.get("description"):
                             st.markdown(f"**Description :** {rec['description'][:200]}{'...' if len(rec['description']) > 200 else ''}")
                         st.markdown(f"**ID produit :** `{rec['productid']}`")
                         st.markdown(f"**ID image produit :** `{rec['imageid']}`")
+                        st.subheader("Image du produit : ")
+                        st.image(f"../../src/data/raw/image_train/{filename}", caption=filename, width=500) # Changer le chemin du répertoire en fonction de la structure du projet (répertoire contenant toutes les photos)
                         st.markdown("---")
         else:
             st.error(f"❌ Erreur : {response.status_code}")
